@@ -7,6 +7,8 @@ import {
   MessageCircle, Wallet, HelpCircle, Activity, Wrench, 
   Bot, Menu, Search
 } from "lucide-react";
+import { WalletContextProvider } from "@/components/WalletContextProvider";
+import ConnectWalletButton from "@/components/ConnectWalletButton";
 
 const archivo = Archivo_Black({ subsets: ["latin"], weight: "400", variable: "--font-archivo" });
 const hind = Hind({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-hind" });
@@ -48,38 +50,38 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${archivo.variable} ${hind.variable} ${jetbrains.variable} dark`}>
       <body className="antialiased font-sans bg-background text-foreground min-h-screen flex flex-col">
-        {/* Header */}
-        <header className="fixed inset-x-0 top-0 z-50 h-16 md:h-20 border-b border-border bg-background px-4 md:px-5 flex items-center justify-between">
-          <div className="flex items-center gap-3 w-60 shrink-0">
-            <button className="md:hidden p-1.5 text-muted-foreground"><Menu className="w-5 h-5" /></button>
-            <a href="/" className="flex items-center gap-2 group">
-              <Image src="/onigilabs-logo.png" alt="OnigiLabs Logo" width={32} height={32} className="group-hover:-translate-y-0.5 transition-transform shrink-0" />
-              <span className="font-display text-[19px] tracking-tight hidden sm:block leading-none mt-1">
-                onigi<span className="text-signal">labs</span>
-              </span>
-            </a>
-          </div>
-          
-          <div className="flex-1 max-w-lg mx-6 relative hidden md:block">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <input 
-              placeholder="Search token or wallet — paste 0x… or type a ticker" 
-              className="w-full bg-card/60 border border-border rounded-lg pl-8 pr-12 py-1.5 text-sm font-mono focus:outline-none focus:border-signal/60 placeholder:text-muted-foreground/70"
-            />
-            <kbd className="absolute right-2 top-1/2 -translate-y-1/2 rounded border border-border px-1.5 py-0.5 font-mono text-xs text-muted-foreground">Ctrl K</kbd>
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0">
-            <div className="hidden lg:flex items-center gap-2 border border-border bg-card px-3 py-2 rounded-lg text-sm font-mono tracking-wider text-muted-foreground">
-              <span className="w-1.5 h-1.5 bg-safe rounded-full blip"></span>
-              SOLANA MAINNET · 101
+        <WalletContextProvider>
+          {/* Header */}
+          <header className="fixed inset-x-0 top-0 z-50 h-16 md:h-20 border-b border-border bg-background px-4 md:px-5 flex items-center justify-between">
+            <div className="flex items-center gap-3 w-60 shrink-0">
+              <button className="md:hidden p-1.5 text-muted-foreground"><Menu className="w-5 h-5" /></button>
+              <a href="/" className="flex items-center gap-2 group">
+                <Image src="/onigilabs-logo.png" alt="OnigiLabs Logo" width={32} height={32} className="group-hover:-translate-y-0.5 transition-transform shrink-0" />
+                <span className="font-display text-[19px] tracking-tight hidden sm:block leading-none mt-1">
+                  onigi<span className="text-signal">labs</span>
+                </span>
+              </a>
             </div>
-            <button className="flex items-center gap-2 border border-border bg-card hover:border-signal/60 hover:text-signal text-sm tracking-widest font-mono px-3 py-1.5 rounded-lg transition-colors">
-              <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full"></span>
-              CONNECT WALLET
-            </button>
-          </div>
-        </header>
+            
+            <div className="flex-1 max-w-lg mx-6 relative hidden md:block">
+              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <input 
+                placeholder="Search token or wallet — paste 0x… or type a ticker" 
+                className="w-full bg-card/60 border border-border rounded-lg pl-8 pr-12 py-1.5 text-sm font-mono focus:outline-none focus:border-signal/60 placeholder:text-muted-foreground/70"
+              />
+              <kbd className="absolute right-2 top-1/2 -translate-y-1/2 rounded border border-border px-1.5 py-0.5 font-mono text-xs text-muted-foreground">Ctrl K</kbd>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <div className="hidden lg:flex items-center gap-2 border border-border bg-card px-3 py-2 rounded-lg text-sm font-mono tracking-wider text-muted-foreground">
+                <span className="w-1.5 h-1.5 bg-safe rounded-full blip"></span>
+                SOLANA MAINNET · 101
+              </div>
+              <div className="wallet-button-container">
+                <ConnectWalletButton />
+              </div>
+            </div>
+          </header>
 
         {/* Layout */}
         <div className="flex flex-1 pt-16 md:pt-20">
@@ -148,6 +150,7 @@ export default function RootLayout({
             ASK ONIGILABS
           </button>
         </div>
+        </WalletContextProvider>
       </body>
     </html>
   );
