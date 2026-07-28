@@ -214,6 +214,10 @@ export default function ScannerV5() {
                   <tr>
                     <td colSpan={15} className="px-4 py-8 text-center text-muted-foreground font-mono text-[10px]">Loading deep indexer data...</td>
                   </tr>
+                ) : tokens.length === 0 ? (
+                  <tr>
+                    <td colSpan={15} className="px-4 py-16 text-center text-muted-foreground font-mono text-[10px]">No tokens found. The indexer might be blocked or returning empty data.</td>
+                  </tr>
                 ) : tokens.map((token, index) => (
                   <tr key={token.address} className="hover:bg-white/5 transition-colors cursor-pointer group" onClick={() => window.open(token.dex_url, "_blank")}>
                     <td className="px-3 py-2 text-[9px] font-mono text-muted-foreground">{index + 1}</td>
