@@ -3,16 +3,26 @@ import axios from 'axios';
 
 export async function GET() {
   try {
-    // The pump.fun frontend API is blocked by Cloudflare for server-to-server requests.
-    // To get pure pump.fun tokens reliably, we use DexScreener's search API filtered for pump.fun.
-    const resPump = await axios.get(`https://api.dexscreener.com/latest/dex/search?q=pump`);
+    // Fetch a massive variety of tokens across Solana to populate the scanner
+    const queries = ['sol', 'pump', 'meme', 'cat', 'dog', 'ai'];
     
-    let allPairs = resPump.data.pairs || [];
+    const requests = queries.map(q => 
+      axios.get(`https://api.dexscreener.com/latest/dex/search?q=${q}`).catch(() => null)
+    );
+
+    const responses = await Promise.all(requests);
+    
+    let allPairs: any[] = [];
+    responses.forEach(res => {
+      if (res && res.data && res.data.pairs) {
+        allPairs = [...allPairs, ...res.data.pairs];
+      }
+    });
     
     // Filter to only Solana chain
     allPairs = allPairs.filter((p: any) => p.chainId === 'solana');
 
-    // Deduplicate by token address
+    // Deduplicate by token address (keep highest liquidity pair)
     const tokenMap = new Map();
     for (const pair of allPairs) {
       if (pair.baseToken.address) {
@@ -63,11 +73,12 @@ export async function GET() {
       };
     });
 
+    // Sort by liquidity descending for a realistic default view
     tokens.sort((a, b) => b.liquidity_usd - a.liquidity_usd);
 
     return NextResponse.json({ tokens });
   } catch (error) {
-    console.error('Error fetching pump.fun tokens:', error);
+    console.error('Error fetching generic tokens:', error);
     return NextResponse.json({ error: 'Failed to fetch tokens' }, { status: 500 });
   }
 }
