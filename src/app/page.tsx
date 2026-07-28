@@ -69,7 +69,7 @@ export default function ScannerV5() {
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-signal">
             <span className="w-1.5 h-1.5 rounded-full bg-signal"></span>
-            <span>ON-CHAIN FORENSICS - ROBINHOOD CHAIN</span>
+            <span>ON-CHAIN FORENSICS - PUMP.FUN</span>
           </div>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tighter leading-[0.9]">
             FIND OUT<br/>WHO REALLY OWNS<br/>THE COIN.
@@ -91,11 +91,11 @@ export default function ScannerV5() {
             <div className="space-y-3 font-mono text-xs">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span className="text-muted-foreground">Network</span>
-                <span>Robinhood Chain</span>
+                <span>Pump.fun (Solana)</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span className="text-muted-foreground">Chain ID</span>
-                <span>6663</span>
+                <span>101</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Coverage</span>
