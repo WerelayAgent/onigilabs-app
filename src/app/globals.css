@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0B0E12;
-  --color-foreground: #F1F4F9;
-  --color-card: #12161C;
-  --color-border: #222933;
-  --color-signal: #3fa9f5;
-  --color-safe: #10b981;
+  --color-background: #050505;
+  --color-foreground: #ededed;
+  --color-card: #0d0d0d;
+  --color-border: #232323;
+  --color-signal: #2dd4a8;
+  --color-safe: #73ffb8;
+  --hover-surface: #ededed;
   
   --font-mono: 'JetBrains Mono', monospace;
   --font-display: 'Archivo Black', sans-serif;
