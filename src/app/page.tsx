@@ -94,7 +94,7 @@ export default function Home() {
       {/* Hero Stats */}
       <div className="grid grid-cols-12 gap-5 max-w-6xl">
         <div className="bento-card lift p-6 sm:p-8 col-span-12 lg:col-span-8 flex flex-col justify-center">
-          <div className="text-[10px] font-mono tracking-[0.22em] text-signal uppercase flex items-center gap-2 mb-6">
+          <div className="text-xs font-mono tracking-[0.22em] text-signal uppercase flex items-center gap-2 mb-6">
             <Radar className="w-4 h-4" />
             <span>On-chain forensics · Solana</span>
           </div>
@@ -110,8 +110,8 @@ export default function Home() {
         <div className="bento-card lift p-6 sm:p-8 col-span-12 lg:col-span-4 flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-center mb-6">
-              <span className="text-[10px] uppercase font-mono tracking-widest text-muted-foreground">System Status</span>
-              <span className="flex items-center gap-2 bg-safe/10 text-safe border border-safe/20 px-2 py-0.5 rounded-full text-[10px] font-mono">
+              <span className="text-xs uppercase font-mono tracking-widest text-muted-foreground">System Status</span>
+              <span className="flex items-center gap-2 bg-safe/10 text-safe border border-safe/20 px-2 py-0.5 rounded-full text-xs font-mono">
                 <span className="w-1.5 h-1.5 bg-safe rounded-full blip"></span>
                 STABLE
               </span>
@@ -137,7 +137,7 @@ export default function Home() {
       {/* Token List */}
       <div className="space-y-4 w-full">
         <div className="flex items-center gap-4">
-          <span className="font-mono text-[10px] tracking-[0.34em] text-signal">01</span>
+          <span className="font-mono text-xs tracking-[0.34em] text-signal">01</span>
           <h2 className="uppercase font-display tracking-tight text-[15px] sm:text-[17px] leading-none">Live Scanner</h2>
           <div className="h-px bg-border flex-1"></div>
         </div>
@@ -146,7 +146,7 @@ export default function Home() {
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full min-w-[1180px] text-left">
               <thead>
-                <tr className="border-b border-border font-mono text-[10px] tracking-[0.14em] text-muted-foreground bg-[var(--hover-surface)]">
+                <tr className="border-b border-border font-mono text-xs tracking-[0.14em] text-muted-foreground bg-[var(--hover-surface)]">
                   <th className="px-3 py-2.5 font-normal text-left w-8">★</th>
                   <th className="px-3 py-2.5 font-normal text-left">TOKEN</th>
                   <th className="px-3 py-2.5 font-normal text-right">SCORE</th>
@@ -184,28 +184,28 @@ export default function Home() {
                           </div>
                         </div>
                         <div>
-                          <div className="font-semibold text-[13px] leading-tight text-foreground">{token.symbol}</div>
-                          <div className="text-[10px] text-muted-foreground font-mono truncate max-w-[120px]">{token.name}</div>
+                          <div className="font-semibold text-base leading-tight text-foreground">{token.symbol}</div>
+                          <div className="text-xs text-muted-foreground font-mono truncate max-w-[120px]">{token.name}</div>
                         </div>
                       </div>
                     </td>
                     <td className="px-3 py-2.5 text-right">
-                       <span className="font-mono text-[13px] text-signal font-semibold">
+                       <span className="font-mono text-base text-signal font-semibold">
                           {token.verification_tier === 'blue' ? '92' : token.verification_tier === 'silver' ? '74' : '45'}
                        </span>
                     </td>
-                    <td className="px-3 py-2.5 text-right font-mono text-[12px]">{formatCurrency(token.price_usd)}</td>
-                    <td className={`px-3 py-2.5 text-right font-mono text-[12px] ${token.price_change_24h > 0 ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+                    <td className="px-3 py-2.5 text-right font-mono text-sm">{formatCurrency(token.price_usd)}</td>
+                    <td className={`px-3 py-2.5 text-right font-mono text-sm ${token.price_change_24h > 0 ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
                       {token.price_change_24h > 0 ? '+' : ''}{token.price_change_24h}%
                     </td>
-                    <td className="px-3 py-2.5 text-right font-mono text-[12px] text-muted-foreground">${formatCompact(token.market_cap)}</td>
-                    <td className="px-3 py-2.5 text-right font-mono text-[12px] text-muted-foreground">${formatCompact(token.liquidity_usd)}</td>
-                    <td className="px-3 py-2.5 text-right font-mono text-[12px] text-muted-foreground">${formatCompact(token.volume_24h)}</td>
+                    <td className="px-3 py-2.5 text-right font-mono text-sm text-muted-foreground">${formatCompact(token.market_cap)}</td>
+                    <td className="px-3 py-2.5 text-right font-mono text-sm text-muted-foreground">${formatCompact(token.liquidity_usd)}</td>
+                    <td className="px-3 py-2.5 text-right font-mono text-sm text-muted-foreground">${formatCompact(token.volume_24h)}</td>
                     <td className="px-3 py-2.5 text-right">
-                        {token.verification_tier === 'blue' && <span className="rounded border px-1.5 py-0.5 font-mono text-[10px] text-[#3fa9f5] border-[#3fa9f5]/40">VERIFIED</span>}
-                        {token.verification_tier === 'silver' && <span className="rounded border px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground border-border">ESTABLISHED</span>}
-                        {token.verification_tier === 'bronze' && <span className="rounded border px-1.5 py-0.5 font-mono text-[10px] text-[#cd7f45] border-[#cd7f45]/40">EMERGING</span>}
-                        {token.verification_tier === 'none' && <span className="rounded border px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground border-border">UNVERIFIED</span>}
+                        {token.verification_tier === 'blue' && <span className="rounded border px-1.5 py-0.5 font-mono text-xs text-[#3fa9f5] border-[#3fa9f5]/40">VERIFIED</span>}
+                        {token.verification_tier === 'silver' && <span className="rounded border px-1.5 py-0.5 font-mono text-xs text-muted-foreground border-border">ESTABLISHED</span>}
+                        {token.verification_tier === 'bronze' && <span className="rounded border px-1.5 py-0.5 font-mono text-xs text-[#cd7f45] border-[#cd7f45]/40">EMERGING</span>}
+                        {token.verification_tier === 'none' && <span className="rounded border px-1.5 py-0.5 font-mono text-xs text-muted-foreground border-border">UNVERIFIED</span>}
                     </td>
                   </tr>
                 ))}
@@ -219,7 +219,7 @@ export default function Home() {
       <div className="grid grid-cols-12 gap-5 max-w-6xl pt-8">
         <div className="col-span-12">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-[10px] tracking-[0.34em] text-signal">02</span>
+            <span className="font-mono text-xs tracking-[0.34em] text-signal">02</span>
             <h2 className="uppercase font-display tracking-tight text-[15px] sm:text-[17px] leading-none">Reading the data</h2>
             <div className="h-px bg-border flex-1"></div>
           </div>
@@ -232,19 +232,19 @@ export default function Home() {
           <div className="mt-4 space-y-3">
             <div className="flex flex-wrap gap-x-4 gap-y-2">
               <span className="inline-flex items-center gap-1.5">
-                <OfficialBadge /> <span className="font-mono text-[10px] text-muted-foreground">Official</span>
+                <OfficialBadge /> <span className="font-mono text-xs text-muted-foreground">Official</span>
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <VerifiedBadge /> <span className="font-mono text-[10px] text-muted-foreground">Verified project</span>
+                <VerifiedBadge /> <span className="font-mono text-xs text-muted-foreground">Verified project</span>
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <EstablishedBadge /> <span className="font-mono text-[10px] text-muted-foreground">Established</span>
+                <EstablishedBadge /> <span className="font-mono text-xs text-muted-foreground">Established</span>
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <EmergingBadge /> <span className="font-mono text-[10px] text-muted-foreground">Emerging</span>
+                <EmergingBadge /> <span className="font-mono text-xs text-muted-foreground">Emerging</span>
               </span>
             </div>
-            <p className="font-mono text-[10px] text-muted-foreground">Rows without a score have not been deep-scanned yet. Open one and the full report is built on the spot.</p>
+            <p className="font-mono text-xs text-muted-foreground">Rows without a score have not been deep-scanned yet. Open one and the full report is built on the spot.</p>
           </div>
         </div>
       </div>
