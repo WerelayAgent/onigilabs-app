@@ -3,38 +3,20 @@ import axios from 'axios';
 
 export async function GET() {
   try {
-    // Fetch live trending pairs from DexScreener to simulate a massive table
-    const [resSol, resPump] = await Promise.all([
-      axios.get(`https://api.dexscreener.com/latest/dex/search?q=sol`),
-      axios.get(`https://api.dexscreener.com/latest/dex/search?q=pump`)
-    ]);
+    // Fetch directly from pump.fun's frontend API to get only pump.fun tokens
+    const pumpRes = await axios.get(`https://frontend-api.pump.fun/coins/latest`);
     
-    let allPairs = [...(resSol.data.pairs || []), ...(resPump.data.pairs || [])];
-    
-    // Filter to only Solana chain
-    allPairs = allPairs.filter((p: any) => p.chainId === 'solana');
+    let pumpTokens = pumpRes.data || [];
+    // Just take top 50 to render
+    pumpTokens = pumpTokens.slice(0, 50);
 
-    // Deduplicate by token address (take the highest liquidity pair)
-    const tokenMap = new Map();
-    for (const pair of allPairs) {
-      if (pair.baseToken.address) {
-        if (!tokenMap.has(pair.baseToken.address)) {
-          tokenMap.set(pair.baseToken.address, pair);
-        } else {
-          const existing = tokenMap.get(pair.baseToken.address);
-          if ((pair.liquidity?.usd || 0) > (existing.liquidity?.usd || 0)) {
-            tokenMap.set(pair.baseToken.address, pair);
-          }
-        }
-      }
-    }
-
-    const tokens = Array.from(tokenMap.values()).map(pair => {
-      // Determine badge tier
+    const tokens = pumpTokens.map((coin: any) => {
+      // Determine badge tier based on market cap (usd_market_cap)
       let tier = 'none';
-      if (pair.liquidity?.usd > 500000) tier = 'gold';
-      else if (pair.liquidity?.usd > 100000) tier = 'blue';
-      else if (pair.liquidity?.usd > 10000) tier = 'silver';
+      const mcap = coin.usd_market_cap || 0;
+      if (mcap > 500000) tier = 'gold';
+      else if (mcap > 100000) tier = 'blue';
+      else if (mcap > 10000) tier = 'silver';
       else tier = 'bronze';
 
       const s_diff = (Math.random() * 20 - 10).toFixed(1); // Mock -10 to +10
@@ -45,36 +27,35 @@ export async function GET() {
       const score = Math.floor(Math.random() * 40) + 60; // 60-99
 
       return {
-        address: pair.baseToken.address,
-        name: pair.baseToken.name,
-        symbol: pair.baseToken.symbol,
-        icon_url: pair.info?.imageUrl || '',
+        address: coin.mint,
+        name: coin.name,
+        symbol: coin.symbol,
+        icon_url: coin.image_uri || '',
         
         // Exact screenshot columns
         score: score,
         s_diff: s_diff,
         r_score: r_score,
         sniped: sniped,
-        price_usd: parseFloat(pair.priceUsd || '0'),
-        price_change_24h: pair.priceChange?.h24 || 0,
-        market_cap: pair.fdv || pair.marketCap || 0,
+        // Pump.fun API doesn't provide price natively, we calculate it or mock it
+        price_usd: (mcap / 1_000_000_000).toFixed(8), // rough approximation based on 1B supply
+        price_change_24h: (Math.random() * 40 - 20), // Mock 24h change
+        market_cap: mcap,
         off_api: Math.random() > 0.8 ? "YES" : "-",
-        liquidity_usd: pair.liquidity?.usd || 0,
-        volume_24h: pair.volume?.h24 || 0,
+        // Mock liquidity and volume since Pump API doesn't give them natively in this endpoint
+        liquidity_usd: mcap * 0.1, 
+        volume_24h: mcap * 0.5,
         top_10: top10,
         holders: holders,
 
-        dex_url: pair.url,
+        dex_url: `https://pump.fun/${coin.mint}`,
         verification_tier: tier,
       };
     });
 
-    // Sort by liquidity descending to make it look realistic
-    tokens.sort((a, b) => b.liquidity_usd - a.liquidity_usd);
-
     return NextResponse.json({ tokens });
   } catch (error) {
-    console.error('Error fetching token data:', error);
-    return NextResponse.json({ error: 'Failed to fetch tokens' }, { status: 500 });
+    console.error('Error fetching pump.fun data:', error);
+    return NextResponse.json({ error: 'Failed to fetch tokens from pump.fun' }, { status: 500 });
   }
 }
