@@ -4,7 +4,7 @@ import "./globals.css";
 import Image from "next/image";
 import { 
   Radar, Star, GitCompare, Code2, LineChart, Radio, 
-  Twitter, Wallet, HelpCircle, ActivitySquare, Wrench, 
+  MessageCircle, Wallet, HelpCircle, Activity, Wrench, 
   Bot, Menu, Search
 } from "lucide-react";
 
@@ -27,14 +27,14 @@ const MENU_ITEMS = [
     { name: "Deployers", desc: "Track serial creators", icon: Code2, href: "#" },
     { name: "Smart money", desc: "Follow profitable wallets", icon: LineChart, href: "#" },
     { name: "Live tape", desc: "Real-time large swaps", icon: Radio, href: "#" },
-    { name: "X radar", desc: "CT sentiment and mentions", icon: Twitter, href: "#" }
+    { name: "X radar", desc: "CT sentiment and mentions", icon: MessageCircle, href: "#" }
   ]},
   { group: "TOOLS", items: [
     { name: "Wallet score", desc: "Analyze any address", icon: Wallet, href: "#" },
     { name: "How we score", desc: "Read the methodology", icon: HelpCircle, href: "#" }
   ]},
   { group: "SYSTEM", items: [
-    { name: "Diagnostics", desc: "Indexer health", icon: ActivitySquare, href: "#" },
+    { name: "Diagnostics", desc: "Indexer health", icon: Activity, href: "#" },
     { name: "Repairs", desc: "Report incorrect data", icon: Wrench, href: "#" },
     { name: "AI / MCP", desc: "Use OnigiLabs in Cursor", icon: Bot, href: "#" }
   ]}
