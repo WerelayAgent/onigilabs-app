@@ -1,38 +1,58 @@
 "use client";
 
-import React, { FC, useMemo } from 'react';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { clusterApiUrl } from '@solana/web3.js';
+import React, { FC, createContext, useContext, useState, useEffect } from 'react';
 
-// Default styles that can be overridden by your app
-import '@solana/wallet-adapter-react-ui/styles.css';
+interface WalletContextState {
+    account: string | null;
+    connect: () => void;
+    disconnect: () => void;
+}
+
+const WalletContext = createContext<WalletContextState>({
+    account: null,
+    connect: () => {},
+    disconnect: () => {},
+});
+
+export const useWallet = () => useContext(WalletContext);
 
 export const WalletContextProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
-    // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-    const network = WalletAdapterNetwork.Mainnet;
+    const [account, setAccount] = useState<string | null>(null);
 
-    // You can also provide a custom RPC endpoint.
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+    useEffect(() => {
+        const checkConnection = async () => {
+            if (typeof window !== 'undefined' && (window as any).ethereum) {
+                const accounts = await (window as any).ethereum.request({ method: 'eth_accounts' });
+                if (accounts.length > 0) {
+                    setAccount(accounts[0]);
+                }
+            }
+        };
+        checkConnection();
+    }, []);
 
-    const wallets = useMemo(
-        () => [
-            new PhantomWalletAdapter(),
-            new SolflareWalletAdapter(),
-        ],
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [network]
-    );
+    const connect = async () => {
+        if (typeof window !== 'undefined' && (window as any).ethereum) {
+            try {
+                const accounts = await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
+                if (accounts.length > 0) {
+                    setAccount(accounts[0]);
+                }
+            } catch (err) {
+                console.error("Failed to connect wallet", err);
+            }
+        } else {
+            alert("MetaMask or Web3 wallet not found. Please install a compatible wallet.");
+        }
+    };
+
+    const disconnect = () => {
+        setAccount(null);
+    };
 
     return (
-        <ConnectionProvider endpoint={endpoint}>
-            <WalletProvider wallets={wallets} autoConnect>
-                <WalletModalProvider>
-                    {children}
-                </WalletModalProvider>
-            </WalletProvider>
-        </ConnectionProvider>
+        <WalletContext.Provider value={{ account, connect, disconnect }}>
+            {children}
+        </WalletContext.Provider>
     );
 };

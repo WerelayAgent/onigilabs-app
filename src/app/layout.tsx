@@ -75,7 +75,7 @@ export default function RootLayout({
             <div className="flex items-center gap-2 shrink-0">
               <div className="hidden lg:flex items-center gap-2 border border-border bg-card px-3 py-2 rounded-lg text-sm font-mono tracking-wider text-muted-foreground">
                 <span className="w-1.5 h-1.5 bg-safe rounded-full blip"></span>
-                SOLANA MAINNET · 101
+                ROBINHOOD MAINNET · 101
               </div>
               <div className="wallet-button-container">
                 <ConnectWalletButton />
