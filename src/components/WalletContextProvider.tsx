@@ -1,14 +1,14 @@
 "use client";
 
 import React, { FC, useMemo } from 'react';
-import { ConnectionProvider, WalletProvider } from '@robinhoodchain/wallet-adapter-react';
-import { WalletAdapterNetwork } from '@robinhoodchain/wallet-adapter-base';
-import { PhantomWalletAdapter, SolflareWalletAdapter } from '@robinhoodchain/wallet-adapter-wallets';
-import { WalletModalProvider } from '@robinhoodchain/wallet-adapter-react-ui';
-import { clusterApiUrl } from '@robinhoodchain/web3.js';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { clusterApiUrl } from '@solana/web3.js';
 
 // Default styles that can be overridden by your app
-import '@robinhoodchain/wallet-adapter-react-ui/styles.css';
+import '@solana/wallet-adapter-react-ui/styles.css';
 
 export const WalletContextProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
