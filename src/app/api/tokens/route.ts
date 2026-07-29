@@ -19,7 +19,7 @@ export async function GET() {
     
     // 2. Filter for Robinhood Chain only and take up to 30 to query their exact live trading data
     const solAddresses = profileRes.data
-      .filter((t: any) => t.chainId === 'robinhoodchain')
+      .filter((t: any) => t.chainId === 'solana')
       .slice(0, 30)
       .map((t: any) => t.tokenAddress);
 

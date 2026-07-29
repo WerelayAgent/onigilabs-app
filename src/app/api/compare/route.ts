@@ -20,8 +20,8 @@ export async function GET(request: Request) {
     const dataB = await resB.json();
 
     // Extract the primary Robinhood Chain pair for each token
-    const pairA = dataA.pairs?.find((p: any) => p.chainId === 'robinhoodchain') || null;
-    const pairB = dataB.pairs?.find((p: any) => p.chainId === 'robinhoodchain') || null;
+    const pairA = dataA.pairs?.find((p: any) => p.chainId === 'solana') || null;
+    const pairB = dataB.pairs?.find((p: any) => p.chainId === 'solana') || null;
 
     if (!pairA) return NextResponse.json({ error: `Token A (${tokenA}) not found on Robinhood Chain` }, { status: 404 });
     if (!pairB) return NextResponse.json({ error: `Token B (${tokenB}) not found on Robinhood Chain` }, { status: 404 });
