@@ -91,7 +91,7 @@ export default function ScannerV5() {
             <div className="space-y-3 font-mono text-xs">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span className="text-muted-foreground">Network</span>
-                <span>Pump.fun (Solana)</span>
+                <span>Pons Family (Robinhood Chain)</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span className="text-muted-foreground">Chain ID</span>

@@ -59,7 +59,7 @@ export default function DeployersPage() {
           <input 
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            placeholder="Paste Solana wallet address..." 
+            placeholder="Paste Robinhood Chain wallet address..." 
             className="w-full bg-card border border-border rounded-lg pl-10 pr-4 py-2.5 text-xs font-mono focus:outline-none focus:border-signal/60"
           />
         </div>

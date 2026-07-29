@@ -17,9 +17,9 @@ export async function GET() {
     // 1. Fetch the absolute newest token profiles across all chains
     const profileRes = await axios.get('https://api.dexscreener.com/token-profiles/latest/v1');
     
-    // 2. Filter for Solana only and take up to 30 to query their exact live trading data
+    // 2. Filter for Robinhood Chain only and take up to 30 to query their exact live trading data
     const solAddresses = profileRes.data
-      .filter((t: any) => t.chainId === 'solana')
+      .filter((t: any) => t.chainId === 'robinhoodchain')
       .slice(0, 30)
       .map((t: any) => t.tokenAddress);
 

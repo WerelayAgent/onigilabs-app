@@ -15,8 +15,8 @@ const hind = Hind({ subsets: ["latin"], weight: ["300", "400", "500", "600", "70
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "OnigiLabs — Solana Meme Coin Scanner",
-  description: "Every token on Solana, scored. Deployer history, holder clusters, liquidity locks in one report.",
+  title: "OnigiLabs — Robinhood Chain Meme Coin Scanner",
+  description: "Every token on Robinhood Chain, scored. Deployer history, holder clusters, liquidity locks in one report.",
 };
 
 const MENU_ITEMS = [
@@ -130,7 +130,7 @@ export default function RootLayout({
               <div className="flex flex-col gap-3 px-4 py-8 font-mono text-sm text-muted-foreground md:flex-row md:items-center md:justify-between max-w-7xl mx-auto w-full">
                 <p className="flex items-center gap-2">
                   <Image src="/onigilabs-logo.png" alt="OnigiLabs logo" width={24} height={24} className="opacity-50 grayscale" />
-                  <span>onigilabs · on-chain forensics for Solana. Data is informational, not financial advice.</span>
+                  <span>onigilabs · on-chain forensics for Robinhood Chain. Data is informational, not financial advice.</span>
                 </p>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                   <a className="font-semibold text-signal" href="/">Scanner</a>

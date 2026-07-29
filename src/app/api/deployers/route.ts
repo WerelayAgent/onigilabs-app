@@ -9,8 +9,8 @@ export async function GET(request: Request) {
   }
 
   try {
-    // 1. Fetch recent signatures for this address using Solana public RPC
-    const rpcUrl = 'https://api.mainnet-beta.solana.com';
+    // 1. Fetch recent signatures for this address using Robinhood Chain public RPC
+    const rpcUrl = 'https://api.mainnet-beta.robinhoodchain.com';
     const sigRes = await fetch(rpcUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
